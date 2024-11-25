@@ -29,34 +29,34 @@ background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379,
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>150</y>
-      <width>271</width>
-      <height>51</height>
+      <x>410</x>
+      <y>130</y>
+      <width>361</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 63 36pt &quot;Sitka Small Semibold&quot;;
-color:rgb(255, 255, 255)</string>
+     <string notr="true">font: 75 48pt &quot;Georgia&quot;;
+color:rgba(0, 51, 102, 1)</string>
     </property>
     <property name="text">
-     <string>SSH Meals</string>
+     <string>SSH MEALS</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>330</y>
-      <width>251</width>
-      <height>61</height>
+      <x>430</x>
+      <y>310</y>
+      <width>321</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Sitka Banner Semibold</family>
-      <pointsize>22</pointsize>
-      <weight>7</weight>
+      <family>Verdana</family>
+      <pointsize>24</pointsize>
+      <weight>9</weight>
       <italic>false</italic>
       <bold>false</bold>
       <strikeout>false</strikeout>
@@ -70,12 +70,51 @@ color:rgb(255, 255, 255)</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius:20px;
-background-color: rgba(149, 165, 166, 1);
-font: 63 22pt &quot;Sitka Banner Semibold&quot;;
-color: rgb(255,255,255);</string>
+border-color:rgba(255, 215, 0, 1);
+background-color:rgba(0, 51, 102, 1);
+font: 75 24pt &quot;Verdana&quot;;
+color: rgb(255,255,255);
+alternate-background-color: rgba(0, 102, 102, 1);</string>
     </property>
     <property name="text">
      <string>Ingredients</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>490</y>
+      <width>321</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>24</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:20px;
+border-color:rgba(255, 215, 0, 1);
+background-color:rgba(0, 51, 102, 1);
+font: 75 24pt &quot;Verdana&quot;;
+color: rgb(255,255,255);
+alternate-background-color: rgba(0, 102, 102, 1);</string>
+    </property>
+    <property name="text">
+     <string>Recipe Suggestions</string>
     </property>
    </widget>
   </widget>
