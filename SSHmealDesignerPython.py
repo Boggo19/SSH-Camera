@@ -21,27 +21,48 @@ class Ui_Dialog(object):
 "background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379, y2:0.977, stop:0 rgba(128, 194, 255, 255), stop:1 rgba(255, 255, 255, 255))}")
         self.widget.setObjectName("widget")
         self.label = QtWidgets.QLabel(self.widget)
-        self.label.setGeometry(QtCore.QRect(470, 150, 271, 51))
-        self.label.setStyleSheet("font: 63 36pt \"Sitka Small Semibold\";\n"
-"color:rgb(255, 255, 255)")
+        self.label.setGeometry(QtCore.QRect(410, 130, 361, 101))
+        self.label.setStyleSheet("font: 75 48pt \"Georgia\";\n"
+"color:rgba(0, 51, 102, 1)")
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.widget)
-        self.pushButton.setGeometry(QtCore.QRect(480, 330, 251, 61))
+        self.pushButton.setGeometry(QtCore.QRect(430, 300, 321, 131))
         font = QtGui.QFont()
-        font.setFamily("Sitka Banner Semibold")
-        font.setPointSize(22)
+        font.setFamily("Verdana")
+        font.setPointSize(24)
         font.setBold(False)
         font.setItalic(False)
-        font.setWeight(7)
+        font.setWeight(9)
         font.setStrikeOut(False)
         self.pushButton.setFont(font)
         self.pushButton.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.pushButton.setAutoFillBackground(False)
         self.pushButton.setStyleSheet("border-radius:20px;\n"
-"background-color: rgba(149, 165, 166, 1);\n"
-"font: 63 22pt \"Sitka Banner Semibold\";\n"
-"color: rgb(255,255,255);")
+"border-color:rgba(255, 215, 0, 1);\n"
+"background-color:rgba(0, 102, 204, 1);\n"
+"font: 75 24pt \"Verdana\";\n"
+"color: rgb(255,255,255);\n"
+"alternate-background-color: rgba(0, 102, 102, 1);")
         self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_2.setGeometry(QtCore.QRect(430, 490, 321, 131))
+        font = QtGui.QFont()
+        font.setFamily("Verdana")
+        font.setPointSize(24)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(9)
+        font.setStrikeOut(False)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.pushButton_2.setAutoFillBackground(False)
+        self.pushButton_2.setStyleSheet("border-radius:20px;\n"
+"border-color:rgba(255, 215, 0, 1);\n"
+"background-color:rgba(0, 102, 204, 1);\n"
+"font: 75 24pt \"Verdana\";\n"
+"color: rgb(255,255,255);\n"
+"alternate-background-color: rgba(0, 102, 102, 1);")
+        self.pushButton_2.setObjectName("pushButton_2")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -49,8 +70,10 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label.setText(_translate("Dialog", "SSH Meals"))
+        self.label.setText(_translate("Dialog", "SSH MEALS"))
         self.pushButton.setText(_translate("Dialog", "Ingredients"))
+        self.pushButton_2.setText(_translate("Dialog", "Recipe\n"
+"Suggestions"))
 
 
 if __name__ == "__main__":
