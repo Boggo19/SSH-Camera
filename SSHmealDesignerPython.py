@@ -14,19 +14,19 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(1200, 800)
+        Dialog.resize(599, 776)
         self.widget = QtWidgets.QWidget(Dialog)
-        self.widget.setGeometry(QtCore.QRect(0, 0, 1200, 800))
+        self.widget.setGeometry(QtCore.QRect(0, 0, 600, 780))
         self.widget.setStyleSheet("QWidget#widget{\n"
 "background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379, y2:0.977, stop:0 rgba(128, 194, 255, 255), stop:1 rgba(255, 255, 255, 255))}")
         self.widget.setObjectName("widget")
         self.label = QtWidgets.QLabel(self.widget)
-        self.label.setGeometry(QtCore.QRect(410, 130, 361, 101))
+        self.label.setGeometry(QtCore.QRect(110, 70, 361, 101))
         self.label.setStyleSheet("font: 75 48pt \"Georgia\";\n"
 "color:rgba(0, 51, 102, 1)")
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.widget)
-        self.pushButton.setGeometry(QtCore.QRect(430, 300, 321, 131))
+        self.pushButton.setGeometry(QtCore.QRect(130, 250, 321, 131))
         font = QtGui.QFont()
         font.setFamily("Verdana")
         font.setPointSize(24)
@@ -45,7 +45,7 @@ class Ui_Dialog(object):
 "alternate-background-color: rgba(0, 102, 102, 1);")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.widget)
-        self.pushButton_2.setGeometry(QtCore.QRect(430, 490, 321, 131))
+        self.pushButton_2.setGeometry(QtCore.QRect(130, 450, 321, 131))
         font = QtGui.QFont()
         font.setFamily("Verdana")
         font.setPointSize(24)
