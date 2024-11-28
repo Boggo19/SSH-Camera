@@ -1,5 +1,45 @@
+import psycopg2
+
 def connect_to_db():
-    pass
+    # Database configuration details
+    DATABASE_CONGFIG = {
+        'dbname' : 'SSHiverMeTimbers',
+        'user' : 'postgres',
+        'password' : 'Aun28012005',
+        'host' : 'localhost',
+        'port' : '5432',
+    }
+
+    try: 
+        #connection to the database
+        connection = psycopg2.connect(**DATABASE_CONGFIG)
+        cursor = connection.cursor()
+        print("Database connection successful")
+        selectQuery = """
+        SELECT recipe_id, ingredient_id
+        FROM "SSH2".linking
+        WHERE recipe_id = %s
+        """
+        cursor.execute(selectQuery, (4,))
+        rows = cursor.fetchall()
+        for row in rows:
+            print(f"Recipe ID: {row[0]}, Ingredient ID: {row[1]}")
+
+        # cursor.execute("SELECT version();")
+        # version = cursor.fetchone()
+        # print("PostgreSQL Version:",version)
+    
+    except Exception as e:
+        print("Error connecting to database:", e)
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+            print("Database connection closed")
+
+    
+    
 
 def get_recipes(cursor, ingredients):
     ingredient_count = len(ingredients)
@@ -22,15 +62,16 @@ def get_recipes(cursor, ingredients):
 
 try:
     # Connect to database
-    conn, cursor = connect_to_db()
-    print("Connected to the database successfully.")
+    # conn, cursor = connect_to_db()
+    # print("Connected to the database successfully.")
         
     # Fetch ingredients from camera
     ingredients = []
         
     # Fetch recipes
-    recipes = get_recipes(cursor, ingredients)
+    # recipes = get_recipes(cursor, ingredients)
         
     # pass recipes to front end
+    connect_to_db()
 except Exception as e:
     print("An error occurred:", e)
