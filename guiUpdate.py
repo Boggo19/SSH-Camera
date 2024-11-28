@@ -1,7 +1,7 @@
 import subprocess
 
 ui_file = "SSHmealDesigner.ui"  
-output_file = "SSHmealDesignerPython.py"  
+output_file = "homePage.py"  
 
 try:
     print(f"Converting {ui_file} to {output_file}...")
