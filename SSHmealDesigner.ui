@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>800</height>
+    <width>599</width>
+    <height>776</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,45 +18,28 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
-     <height>800</height>
+     <width>600</width>
+     <height>780</height>
     </rect>
    </property>
    <property name="styleSheet">
     <string notr="true">QWidget#widget{
 background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379, y2:0.977, stop:0 rgba(128, 194, 255, 255), stop:1 rgba(255, 255, 255, 255))}</string>
    </property>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>470</x>
-      <y>150</y>
-      <width>271</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 63 36pt &quot;Sitka Small Semibold&quot;;
-color:rgb(255, 255, 255)</string>
-    </property>
-    <property name="text">
-     <string>SSH Meals</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>330</y>
-      <width>251</width>
-      <height>61</height>
+      <x>140</x>
+      <y>280</y>
+      <width>291</width>
+      <height>111</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Sitka Banner Semibold</family>
-      <pointsize>22</pointsize>
-      <weight>7</weight>
+      <family>Verdana</family>
+      <pointsize>24</pointsize>
+      <weight>9</weight>
       <italic>false</italic>
       <bold>false</bold>
       <strikeout>false</strikeout>
@@ -69,14 +52,160 @@ color:rgb(255, 255, 255)</string>
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-radius:20px;
-background-color: rgba(149, 165, 166, 1);
-font: 63 22pt &quot;Sitka Banner Semibold&quot;;
-color: rgb(255,255,255);</string>
+     <string notr="true">border-radius:50px;
+border-color:rgba(255, 215, 0, 1);
+background-color:rgba(0, 102, 204, 1);
+font: 75 24pt &quot;Verdana&quot;;
+color: rgb(255,255,255);
+alternate-background-color: rgba(0, 102, 102, 1);</string>
     </property>
     <property name="text">
      <string>Ingredients</string>
     </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>480</y>
+      <width>291</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>24</pointsize>
+      <weight>9</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius:50px;
+border-color:rgba(255, 215, 0, 1);
+background-color:rgba(0, 102, 204, 1);
+font: 75 24pt &quot;Verdana&quot;;
+color: rgb(255,255,255);
+alternate-background-color: rgba(0, 102, 102, 1);</string>
+    </property>
+    <property name="text">
+     <string>Recipe
+Suggestions</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="colourWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>780</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QWidget#widget{
+background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379, y2:0.977, stop:0 rgba(128, 194, 255, 255), stop:1 rgba(255, 255, 255, 255))}</string>
+    </property>
+    <widget class="QLabel" name="lblSSHmeals">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>90</y>
+       <width>461</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 75 48pt &quot;Georgia&quot;;
+color:rgba(0, 51, 102, 1)</string>
+     </property>
+     <property name="text">
+      <string>SSH MEALS</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ingredientsButton">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>280</y>
+       <width>291</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>24</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+       <strikeout>false</strikeout>
+      </font>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius:50px;
+border-color:rgba(255, 215, 0, 1);
+background-color:rgba(0, 102, 204, 1);
+font: 75 24pt &quot;Verdana&quot;;
+color: rgb(255,255,255);
+alternate-background-color: rgba(0, 102, 102, 1);</string>
+     </property>
+     <property name="text">
+      <string>Ingredients</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="recipeButton">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>480</y>
+       <width>291</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Verdana</family>
+       <pointsize>24</pointsize>
+       <weight>9</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+       <strikeout>false</strikeout>
+      </font>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius:50px;
+border-color:rgba(255, 215, 0, 1);
+background-color:rgba(0, 102, 204, 1);
+font: 75 24pt &quot;Verdana&quot;;
+color: rgb(255,255,255);
+alternate-background-color: rgba(0, 102, 102, 1);</string>
+     </property>
+     <property name="text">
+      <string>Recipe
+Suggestions</string>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
