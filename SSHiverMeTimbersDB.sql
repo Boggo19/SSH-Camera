@@ -506,7 +506,7 @@ COPY "SSH".recipes (recipe_id, recipe_name, description, prep_time, cook_time, s
 10	Pan-Seared Salmon	Seared salmon served with lemon butter sauce.	00:10:00	00:20:00	2	500	40	5(0)	20(7)	2	1	Pan-sear salmon with seasoning and serve with sauce.
 11	Margherita Pizza	Classic pizza with tomato, basil, and mozzarella.	00:10:00	00:20:00	4	400	15	50(6)	10(3)	4	1	Spread tomato sauce, add cheese and bake pizza.
 12	Stuffed Bell Peppers	Bell peppers stuffed with rice and ground meat.	00:10:00	00:20:00	4	350	20	30(4)	10(3)	5	2	Fill bell peppers with mixture, bake, and serve.
-13	Shepherds Pie	Traditional dish with ground meat and mashed potatoes.	00:10:00	00:20:00	6	600	25	40(5)	15(6)	6	2	Cook meat, layer with potatoes, and bake.
+13	Shepherd's Pie	Traditional dish with ground meat and mashed potatoes.	00:10:00	00:20:00	6	600	25	40(5)	15(6)	6	2	Cook meat, layer with potatoes, and bake.
 14	Vegetable Curry	Spicy vegetable curry served with rice or naan.	00:10:00	00:20:00	4	450	15	45(6)	10(3)	6	1	Cook vegetables with spices and serve with rice.
 15	Shrimp Scampi	Juicy shrimp cooked in garlic butter sauce.	00:10:00	00:20:00	2	550	30	10(1)	20(6)	2	1	Cook shrimp in garlic butter and serve with pasta.
 16	Chicken Alfredo	Creamy Alfredo pasta with grilled chicken.	00:10:00	00:20:00	4	700	40	50(8)	20(7)	4	2	Cook pasta and mix with creamy Alfredo sauce.
