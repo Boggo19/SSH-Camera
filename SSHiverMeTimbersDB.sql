@@ -5,7 +5,7 @@
 -- Dumped from database version 17.2
 -- Dumped by pg_dump version 17.2
 
--- Started on 2024-11-28 16:27:27
+-- Started on 2024-12-02 11:27:16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -899,7 +899,6 @@ COPY "SSH2".recipes (recipe_id, recipe_name, description, prep_time, cook_time, 
 10	Pan-Seared Salmon	Seared salmon served with lemon butter sauce.	00:10:00	00:20:00	2	500	40	5(0)	20(7)	2	1	Pan-sear salmon with seasoning and serve with sauce.
 11	Margherita Pizza	Classic pizza with tomato, basil, and mozzarella.	00:10:00	00:20:00	4	400	15	50(6)	10(3)	4	1	Spread tomato sauce, add cheese and bake pizza.
 12	Stuffed Bell Peppers	Bell peppers stuffed with rice and ground meat.	00:10:00	00:20:00	4	350	20	30(4)	10(3)	5	2	Fill bell peppers with mixture, bake, and serve.
-13	Shepherds Pie	Traditional dish with ground meat and mashed potatoes.	00:10:00	00:20:00	6	600	25	40(5)	15(6)	6	2	Cook meat, layer with potatoes, and bake.
 14	Vegetable Curry	Spicy vegetable curry served with rice or naan.	00:10:00	00:20:00	4	450	15	45(6)	10(3)	6	1	Cook vegetables with spices and serve with rice.
 15	Shrimp Scampi	Juicy shrimp cooked in garlic butter sauce.	00:10:00	00:20:00	2	550	30	10(1)	20(6)	2	1	Cook shrimp in garlic butter and serve with pasta.
 16	Chicken Alfredo	Creamy Alfredo pasta with grilled chicken.	00:10:00	00:20:00	4	700	40	50(8)	20(7)	4	2	Cook pasta and mix with creamy Alfredo sauce.
@@ -922,6 +921,7 @@ COPY "SSH2".recipes (recipe_id, recipe_name, description, prep_time, cook_time, 
 33	Baked Ziti	Baked pasta with cheese and tomato sauce.	00:10:00	00:20:00	4	600	20	40(5)	25(10)	4	1	Mix pasta, sauce, and cheese. Bake until golden.
 34	Pumpkin Soup	Warm pumpkin soup spiced with nutmeg.	00:10:00	00:20:00	4	300	5	20(4)	5(2)	3	1	Cook pumpkin, blend, and add spices for soup.
 35	Apple Pie	Classic dessert with spiced apples in a crust.	00:10:00	00:20:00	6	450	5	40(5)	15(6)	3	1	Prepare apple filling, assemble, and bake pie.
+13	Shepards Pie	Traditional dish with ground meat and mashed potatoes.	00:10:00	00:20:00	6	600	25	40(5)	15(6)	6	2	Cook meat, layer with potatoes, and bake.
 \.
 
 
@@ -1076,7 +1076,7 @@ ALTER TABLE ONLY public.recipe_ingredient
     ADD CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES "SSH".recipes(recipe_id) ON DELETE CASCADE;
 
 
--- Completed on 2024-11-28 16:27:28
+-- Completed on 2024-12-02 11:27:16
 
 --
 -- PostgreSQL database dump complete

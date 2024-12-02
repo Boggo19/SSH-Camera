@@ -4,4 +4,6 @@ ENV POSTGRES_DB=SSHiverMeTimbers
 ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres
 
-COPY sshdb_dump.sql /docker-entrypoint-initdb.d/
+COPY SSHiverMeTimbersDB.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 5432

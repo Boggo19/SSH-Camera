@@ -1,12 +1,15 @@
+version: '3.8'
+
 services:
-  db:
+  postgres:
     build: .
-    environment:
-      POSTGRES_DB: SSHiverMeTimbers
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+    container_name: postgres_shared
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: SSHiverMeTimbers
     volumes:
       - pgdata:/var/lib/postgresql/data
 
