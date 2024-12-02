@@ -38,7 +38,20 @@ def connect_to_db():
             connection.close()
             print("Database connection closed")
 
-    
+def get_ingredients():
+    data = [
+        ('Red Pepper', 2),
+        ('Chicken', 1),
+        ('Green Pepper', 3),
+        ('Onion', 2),
+        ('Bacon', 6),
+        ('Red Pepper', 2),
+        ('Chicken', 1),
+        ('Green Pepper', 3),
+        ('Onion', 2),
+        ('Bacon', 6)
+    ]
+    return data   
     
 
 def get_recipes(cursor, ingredients):

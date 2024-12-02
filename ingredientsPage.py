@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QTableView, QLabel, QPushButton, QVBoxLayou
 from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon
 from PyQt5.QtCore import Qt
 from PyQt5 import QtCore, QtGui, QtWidgets
+import QueryFunction
 
 class IngredientsPage(QDialog):
     def __init__(self, parent=None):
@@ -71,25 +72,12 @@ class IngredientsPage(QDialog):
             title_row.append(title_item)
         model.appendRow(title_row)
 
-        # Add data rows
-        data = [
-            ("Red Pepper", 2, "path/to/red_pepper.png"),
-            ("Chicken", 1, "path/to/chicken.png"),
-            ("Green Pepper", 3, "path/to/green_pepper.png"),
-            ("Onion", 2, "path/to/onion.png"),
-            ("Bacon", 6, "path/to/bacon.png"),
-            ("Red Pepper", 2, "path/to/red_pepper.png"),
-            ("Chicken", 1, "path/to/chicken.png"),
-            ("Green Pepper", 3, "path/to/green_pepper.png"),
-            ("Onion", 2, "path/to/onion.png"),
-            ("Bacon", 6, "path/to/bacon.png"),
-            
-            
-        ]
+        #Get data rows from database
+        data = QueryFunction.get_ingredients()
 
-        for ingredient, quantity, icon_path in data:
+        # Add data rows
+        for ingredient, quantity in data:
             icon_item = QStandardItem()
-            icon_item.setIcon(QIcon(icon_path))
             icon_item.setText(ingredient)
             icon_item.setTextAlignment(Qt.AlignVCenter)
             icon_item.setFlags(Qt.NoItemFlags)  # Completely disable interaction
