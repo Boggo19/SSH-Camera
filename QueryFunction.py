@@ -1,5 +1,6 @@
 import psycopg2
 
+
 def connect_to_db():
     # Database configuration details
     DATABASE_CONGFIG = {
@@ -38,7 +39,9 @@ def connect_to_db():
             connection.close()
             print("Database connection closed")
 
-def get_ingredients():
+
+
+def get_ingredients(cursor):
     data = [
         ('Red Pepper', 2),
         ('Chicken', 1),

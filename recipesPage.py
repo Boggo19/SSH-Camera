@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QDialog, QLabel, QTableView, QPushButton, QVBoxLayout, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon, QFont
 from PyQt5.QtCore import Qt
+import QueryFunction
 
 
 class RecipesPage(QDialog):
@@ -77,12 +78,14 @@ class RecipesPage(QDialog):
         model.appendRow(title_row)
 
         # Add rows of data
-        data = [
-            ("Spaghetti Bolognese", 2),
-            ("Chicken Curry", 4),
-            ("Grilled Salmon", 1),
-            ("Vegetable Stir-Fry", 3),
-        ]
+        data = QueryFunction.get_recipes()
+        
+        # [
+        #     ("Spaghetti Bolognese", 2),
+        #     ("Chicken Curry", 4),
+        #     ("Grilled Salmon", 1),
+        #     ("Vegetable Stir-Fry", 3),
+        # ]
 
         for meal_name, ingredients_needed in data:
             # Meal Name
