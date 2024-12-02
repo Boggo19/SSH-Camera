@@ -20,44 +20,6 @@ class Ui_Dialog(object):
         self.widget.setStyleSheet("QWidget#widget{\n"
 "background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379, y2:0.977, stop:0 rgba(128, 194, 255, 255), stop:1 rgba(255, 255, 255, 255))}")
         self.widget.setObjectName("widget")
-        self.pushButton = QtWidgets.QPushButton(self.widget)
-        self.pushButton.setGeometry(QtCore.QRect(140, 280, 291, 111))
-        font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(24)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        font.setStrikeOut(False)
-        self.pushButton.setFont(font)
-        self.pushButton.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.pushButton.setAutoFillBackground(False)
-        self.pushButton.setStyleSheet("border-radius:50px;\n"
-"border-color:rgba(255, 215, 0, 1);\n"
-"background-color:rgba(0, 102, 204, 1);\n"
-"font: 75 24pt \"Verdana\";\n"
-"color: rgb(255,255,255);\n"
-"alternate-background-color: rgba(0, 102, 102, 1);")
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.widget)
-        self.pushButton_2.setGeometry(QtCore.QRect(140, 480, 291, 111))
-        font = QtGui.QFont()
-        font.setFamily("Verdana")
-        font.setPointSize(24)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(9)
-        font.setStrikeOut(False)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.pushButton_2.setAutoFillBackground(False)
-        self.pushButton_2.setStyleSheet("border-radius:50px;\n"
-"border-color:rgba(255, 215, 0, 1);\n"
-"background-color:rgba(0, 102, 204, 1);\n"
-"font: 75 24pt \"Verdana\";\n"
-"color: rgb(255,255,255);\n"
-"alternate-background-color: rgba(0, 102, 102, 1);")
-        self.pushButton_2.setObjectName("pushButton_2")
         self.colourWidget = QtWidgets.QWidget(self.widget)
         self.colourWidget.setGeometry(QtCore.QRect(0, 0, 600, 780))
         self.colourWidget.setStyleSheet("QWidget#widget{\n"
@@ -69,7 +31,7 @@ class Ui_Dialog(object):
 "color:rgba(0, 51, 102, 1)")
         self.lblSSHmeals.setObjectName("lblSSHmeals")
         self.ingredientsButton = QtWidgets.QPushButton(self.colourWidget)
-        self.ingredientsButton.setGeometry(QtCore.QRect(140, 280, 291, 111))
+        self.ingredientsButton.setGeometry(QtCore.QRect(140, 280, 291, 121))
         font = QtGui.QFont()
         font.setFamily("Verdana")
         font.setPointSize(24)
@@ -88,7 +50,7 @@ class Ui_Dialog(object):
 "alternate-background-color: rgba(0, 102, 102, 1);")
         self.ingredientsButton.setObjectName("ingredientsButton")
         self.recipeButton = QtWidgets.QPushButton(self.colourWidget)
-        self.recipeButton.setGeometry(QtCore.QRect(140, 480, 291, 111))
+        self.recipeButton.setGeometry(QtCore.QRect(140, 480, 291, 121))
         font = QtGui.QFont()
         font.setFamily("Verdana")
         font.setPointSize(24)
@@ -113,9 +75,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.pushButton.setText(_translate("Dialog", "Ingredients"))
-        self.pushButton_2.setText(_translate("Dialog", "Recipe\n"
-"Suggestions"))
         self.lblSSHmeals.setText(_translate("Dialog", "SSH MEALS"))
         self.ingredientsButton.setText(_translate("Dialog", "Ingredients"))
         self.recipeButton.setText(_translate("Dialog", "Recipe\n"

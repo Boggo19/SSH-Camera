@@ -18,10 +18,10 @@ class IngredientsPage(QDialog):
         # Title label
         self.title_label = QLabel("INGREDIENTS")
         self.title_label.setStyleSheet("""
-            font: 75 48pt 'Georgia';
+            font: 75 45pt 'Georgia';
             color: rgba(0, 51, 102, 1); /* Dark blue text */
             background: transparent; /* Remove any background */
-            margin-top: 20px; /* Adjust this value to move the title lower */
+            margin-top: 25px; /* Adjust this value to move the title lower */
         """)
         self.title_label.setAlignment(Qt.AlignCenter)
 
