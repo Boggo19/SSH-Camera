@@ -1,4 +1,48 @@
 import psycopg2
+<<<<<<< HEAD
+=======
+
+def connect_to_db():
+    # Database configuration details
+    DATABASE_CONGFIG = {
+        'dbname' : 'SSHiverMeTimbers',
+        'user' : 'postgres',
+        'password' : 'Aun28012005',
+        'host' : 'localhost',
+        'port' : '5432',
+    }
+
+    try: 
+        #connection to the database
+        connection = psycopg2.connect(**DATABASE_CONGFIG)
+        cursor = connection.cursor()
+        print("Database connection successful")
+        selectQuery = """
+        SELECT recipe_id, ingredient_id
+        FROM "SSH2".linking
+        WHERE recipe_id = %s
+        """
+        cursor.execute(selectQuery, (4,))
+        rows = cursor.fetchall()
+        for row in rows:
+            print(f"Recipe ID: {row[0]}, Ingredient ID: {row[1]}")
+
+        # cursor.execute("SELECT version();")
+        # version = cursor.fetchone()
+        # print("PostgreSQL Version:",version)
+    
+    except Exception as e:
+        print("Error connecting to database:", e)
+
+    finally:
+        if connection:
+            cursor.close()
+            connection.close()
+            print("Database connection closed")
+
+    
+    
+>>>>>>> 2ed392ea59f162003becad08a383e95620c0b244
 
 def connect_to_db():
     """
@@ -45,6 +89,7 @@ def get_recipes(cursor, ingredients):
         print("Error executing query:", e)
         raise
 
+<<<<<<< HEAD
 def main():
     """
     Main function to interact with the user and display recipes based on their available ingredients.
@@ -53,11 +98,18 @@ def main():
         # Connect to the database
         conn, cursor = connect_to_db()
         print("Connected to the database successfully.")
+=======
+try:
+    # Connect to database
+    # conn, cursor = connect_to_db()
+    # print("Connected to the database successfully.")
+>>>>>>> 2ed392ea59f162003becad08a383e95620c0b244
         
         # Input ingredients from the user
         ingredients = input("Enter the ingredients you have, separated by commas: ").split(",")
         ingredients = [ingredient.strip() for ingredient in ingredients]  # Clean up whitespace
         
+<<<<<<< HEAD
         # Fetch recipes
         recipes = get_recipes(cursor, ingredients)
         
@@ -80,3 +132,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+=======
+    # Fetch recipes
+    # recipes = get_recipes(cursor, ingredients)
+        
+    # pass recipes to front end
+    connect_to_db()
+except Exception as e:
+    print("An error occurred:", e)
+>>>>>>> 2ed392ea59f162003becad08a383e95620c0b244
