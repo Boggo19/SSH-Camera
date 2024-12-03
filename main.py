@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QStackedWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget, QWidget
 from homePage import Ui_Dialog
 from ingredientsPage import IngredientsPage
-from recipesPage import RecipesPage  # Import RecipesPage
+from recipesPage import RecipesPage
+from recipeDetailsPage import RecipeDetailsPage
 
 
 class MainWindow(QMainWindow):
@@ -10,52 +11,54 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
 
         # Initialize the main stacked widget
-        self.stacked_widget = QStackedWidget(self)
+        self.stacked_widget = QStackedWidget()
         self.setCentralWidget(self.stacked_widget)
 
-        # Create and set up the home page
+        # Initialize pages
         self.ui = Ui_Dialog()
-        self.home_widget = QWidget(self)  # Parent the home widget to MainWindow
+        self.home_widget = QWidget()
         self.ui.setupUi(self.home_widget)
 
-        # Create and set up the ingredients page
-        self.ingredients_page = IngredientsPage(self)  # Parent the ingredients page to MainWindow
+        self.ingredients_page = IngredientsPage()
+        self.recipes_page = RecipesPage()
+        self.recipe_details_page = RecipeDetailsPage()
 
-        # Create and set up the recipes page
-        self.recipes_page = RecipesPage(self)  # Parent the recipes page to MainWindow
-
-        # Add all pages to the stacked widget
+        # Add pages to stacked widget
         self.stacked_widget.addWidget(self.home_widget)
         self.stacked_widget.addWidget(self.ingredients_page)
         self.stacked_widget.addWidget(self.recipes_page)
+        self.stacked_widget.addWidget(self.recipe_details_page)
 
-        # Set the initial page to the home page
+        # Set the initial page
         self.stacked_widget.setCurrentWidget(self.home_widget)
+        self.setFixedSize(600, 780)
 
-        # Set fixed size to match the home page
-        self.setFixedSize(self.home_widget.size())
-
-        # Connect buttons for navigation
+        # Connect navigation buttons
         self.ui.ingredientsButton.clicked.connect(self.open_ingredients_page)
-        self.ui.recipeButton.clicked.connect(self.open_recipes_page)  # Connect recipe button to open the recipes page
+        self.ui.recipeButton.clicked.connect(self.open_recipes_page)
         self.ingredients_page.back_button.clicked.connect(self.show_home_page)
         self.recipes_page.back_button.clicked.connect(self.show_home_page)
+        self.recipes_page.recipe_clicked.connect(self.open_recipe_details_page)
+
+        # Connect back signal from RecipeDetailsPage
+        self.recipe_details_page.back_button_clicked.connect(self.open_recipes_page)
 
     def open_ingredients_page(self):
         """Switch to the Ingredients Page."""
-        self.stacked_widget.setCurrentWidget(self.ingredients_page)  # Switch to the ingredients page
-        self.setFixedSize(self.ingredients_page.size())  # Adjust the window size to match the ingredients page
+        self.stacked_widget.setCurrentWidget(self.ingredients_page)
 
     def open_recipes_page(self):
         """Switch to the Recipes Page."""
-        self.stacked_widget.setCurrentWidget(self.recipes_page)  # Switch to the recipes page
-        self.setFixedSize(self.recipes_page.size())  # Adjust the window size to match the recipes page
+        self.stacked_widget.setCurrentWidget(self.recipes_page)
+
+    def open_recipe_details_page(self, meal_name):
+        """Switch to the Recipe Details Page."""
+        self.recipe_details_page.update_content(meal_name)
+        self.stacked_widget.setCurrentWidget(self.recipe_details_page)
 
     def show_home_page(self):
         """Switch back to the Home Page."""
-        self.stacked_widget.setCurrentWidget(self.home_widget)  # Switch to the home page
-        self.setFixedSize(self.home_widget.size())  # Adjust the window size to match the home page
-
+        self.stacked_widget.setCurrentWidget(self.home_widget)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

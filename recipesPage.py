@@ -1,9 +1,11 @@
 from PyQt5.QtWidgets import QDialog, QLabel, QTableView, QPushButton, QVBoxLayout, QSpacerItem, QSizePolicy
-from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon, QFont
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QFont
+from PyQt5.QtCore import Qt, pyqtSignal
 
 
 class RecipesPage(QDialog):
+    recipe_clicked = pyqtSignal(str)  # Signal to notify which recipe was clicked
+
     def __init__(self, parent=None):
         super(RecipesPage, self).__init__(parent)
         self.setGeometry(100, 100, 600, 780)
@@ -54,6 +56,9 @@ class RecipesPage(QDialog):
         self.back_button.clicked.connect(self.close)
         layout.addWidget(self.back_button)
 
+        # Connect table click to handler
+        self.table_view.clicked.connect(self.on_recipe_clicked)
+
     def setup_table(self):
         # Create the table model
         model = QStandardItemModel()
@@ -77,14 +82,14 @@ class RecipesPage(QDialog):
         model.appendRow(title_row)
 
         # Add rows of data
-        data = [
+        self.data = [
             ("Spaghetti Bolognese", 2),
             ("Chicken Curry", 4),
             ("Grilled Salmon", 1),
             ("Vegetable Stir-Fry", 3),
         ]
 
-        for meal_name, ingredients_needed in data:
+        for meal_name, ingredients_needed in self.data:
             # Meal Name
             meal_name_item = QStandardItem(meal_name)
             meal_name_item.setTextAlignment(Qt.AlignCenter)
@@ -112,9 +117,9 @@ class RecipesPage(QDialog):
 
         # Disable all interactions with the table
         self.table_view.setEditTriggers(QTableView.NoEditTriggers)  # Disable editing
-        self.table_view.setSelectionMode(QTableView.NoSelection)    # Disable selection
+        self.table_view.setSelectionMode(QTableView.SingleSelection)  # Enable single-row selection
         self.table_view.setFocusPolicy(Qt.NoFocus)                  # Disable focus
-        self.table_view.setEnabled(False)                           # Completely disable interaction
+        self.table_view.setEnabled(True)                            # Allow row selection
 
         # Style the table
         self.table_view.setStyleSheet("""
@@ -127,3 +132,10 @@ class RecipesPage(QDialog):
                 color: rgba(0, 51, 102, 1);
             }
         """)
+
+    def on_recipe_clicked(self, index):
+        """Handle recipe row click."""
+        selected_row = index.row()
+        if selected_row > 0:  # Skip the title row
+            meal_name = self.data[selected_row - 1][0]  # Get the meal name
+            self.recipe_clicked.emit(meal_name)  # Emit the signal
