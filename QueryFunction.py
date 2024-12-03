@@ -9,7 +9,7 @@ def connect_to_db():
         conn = psycopg2.connect(
             dbname="SSHiverMeTimbers",  # Replace with your database name
             user="postgres",    # Replace with your database username
-            password="password",  # Replace with your database password
+            password="251910",  # Replace with your database password
             host="localhost",        # Replace with your host, if different
             port="5432"              # Replace with your port, if different
         )
@@ -17,6 +17,37 @@ def connect_to_db():
     except psycopg2.Error as e:
         print("Error connecting to the database:", e)
         raise
+
+def getIngredients():
+    conn, cursor = connect_to_db()
+    ingredients = get_ingredients(cursor)
+    cursor.close()
+    conn.close()
+    return ingredients
+
+
+def get_ingredients(cursor):
+    query = """
+    SELECT i.ingredient_name
+    FROM "SSH2".ingredients i
+    ORDER BY RANDOM()
+    LIMIT 30
+    """
+
+    try:
+        cursor.execute(query)
+        return [row[0] for row in cursor.fetchall()]
+    except psycopg2.Error as e:
+        print("Error executing query:", e)
+        raise
+
+def getRecipes(ingredients):
+    conn, cursor = connect_to_db()
+    recipes = get_recipes(cursor, ingredients)
+    cursor.close()
+    conn.close()
+    return recipes
+
 
 def get_recipes(cursor, ingredients):
     """

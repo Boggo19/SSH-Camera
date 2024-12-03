@@ -1,3 +1,4 @@
+import random
 from PyQt5.QtWidgets import QWidget, QTableView, QLabel, QPushButton, QVBoxLayout, QDialog, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon
 from PyQt5.QtCore import Qt
@@ -73,16 +74,16 @@ class IngredientsPage(QDialog):
         model.appendRow(title_row)
 
         #Get data rows from database
-        data = QueryFunction.get_ingredients()
+        data = QueryFunction.getIngredients()
 
         # Add data rows
-        for ingredient, quantity in data:
+        for ingredient in data:
             icon_item = QStandardItem()
             icon_item.setText(ingredient)
             icon_item.setTextAlignment(Qt.AlignVCenter)
             icon_item.setFlags(Qt.NoItemFlags)  # Completely disable interaction
 
-            quantity_item = QStandardItem(str(quantity))
+            quantity_item = QStandardItem(str(random.randint(1,5)))
             quantity_item.setTextAlignment(Qt.AlignCenter)
             quantity_item.setFlags(Qt.NoItemFlags)  # Completely disable interaction
 

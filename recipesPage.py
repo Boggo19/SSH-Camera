@@ -77,8 +77,11 @@ class RecipesPage(QDialog):
         # Add the column titles as the first row
         model.appendRow(title_row)
 
+        ingredientRows = QueryFunction.getIngredients()
+        ingredients = [row[0] for row in ingredientRows]
+        
         # Add rows of data
-        data = QueryFunction.get_recipes()
+        data = QueryFunction.getRecipes(ingredients)
         
         # [
         #     ("Spaghetti Bolognese", 2),
