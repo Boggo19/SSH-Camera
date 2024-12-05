@@ -10,58 +10,66 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        # Initialize the main stacked widget
-        self.stacked_widget = QStackedWidget()
-        self.setCentralWidget(self.stacked_widget)
+        # Create a stacked widget to manage different pages
+        # This acts as a container where only one page is visible at a time
+        self.stackedWidget = QStackedWidget()
+        self.setCentralWidget(self.stackedWidget)  # Set it as the central widget of the main window
 
-        # Initialize pages
-        self.ui = Ui_Dialog()
-        self.home_widget = QWidget()
-        self.ui.setupUi(self.home_widget)
+        # Initialize all the pages
+        self.ui = Ui_Dialog()  # Home page UI
+        self.homeWidget = QWidget()  # Container for the home page
+        self.ui.setupUi(self.homeWidget)  # Set up the home page layout
 
-        self.ingredients_page = IngredientsPage()
-        self.recipes_page = RecipesPage()
-        self.recipe_details_page = RecipeDetailsPage()
+        self.ingredientsPage = IngredientsPage()  # Page for managing ingredients
+        self.recipesPage = RecipesPage()  # Page for viewing recipes
+        self.recipeDetailsPage = RecipeDetailsPage()  # Page to show detailed information about a recipe
 
-        # Add pages to stacked widget
-        self.stacked_widget.addWidget(self.home_widget)
-        self.stacked_widget.addWidget(self.ingredients_page)
-        self.stacked_widget.addWidget(self.recipes_page)
-        self.stacked_widget.addWidget(self.recipe_details_page)
+        # Add all the pages to the stacked widget
+        self.stackedWidget.addWidget(self.homeWidget)  # Home page
+        self.stackedWidget.addWidget(self.ingredientsPage)  # Ingredients page
+        self.stackedWidget.addWidget(self.recipesPage)  # Recipes page
+        self.stackedWidget.addWidget(self.recipeDetailsPage)  # Recipe details page
 
-        # Set the initial page
-        self.stacked_widget.setCurrentWidget(self.home_widget)
+        # Set the home page as the initial visible page
+        self.stackedWidget.setCurrentWidget(self.homeWidget)
+
+        # Lock the main window size to ensure consistency across screens whatever their size
         self.setFixedSize(600, 780)
 
-        # Connect navigation buttons
-        self.ui.ingredientsButton.clicked.connect(self.open_ingredients_page)
-        self.ui.recipeButton.clicked.connect(self.open_recipes_page)
-        self.ingredients_page.back_button.clicked.connect(self.show_home_page)
-        self.recipes_page.back_button.clicked.connect(self.show_home_page)
-        self.recipes_page.recipe_clicked.connect(self.open_recipe_details_page)
+        # Set up navigation between pages when different buttons are clicked
+        # Home page buttons
+        self.ui.ingredientsButton.clicked.connect(self.openIngredientsPage)  # Navigate to the ingredients page
+        self.ui.recipeButton.clicked.connect(self.openRecipesPage)  # Navigate to the recipes page
 
-        # Connect back signal from RecipeDetailsPage
-        self.recipe_details_page.back_button_clicked.connect(self.open_recipes_page)
+        # Back button in the Ingredients page
+        self.ingredientsPage.backButton.clicked.connect(self.showHomePage)  # Return to the home page
 
-    def open_ingredients_page(self):
-        """Switch to the Ingredients Page."""
-        self.stacked_widget.setCurrentWidget(self.ingredients_page)
+        # Back button in the Recipes page
+        self.recipesPage.backButton.clicked.connect(self.showHomePage)  # Return to the home page
 
-    def open_recipes_page(self):
-        """Switch to the Recipes Page."""
-        self.stacked_widget.setCurrentWidget(self.recipes_page)
+        # When a recipe is selected in the Recipes page, open the details page
+        self.recipesPage.recipeClicked.connect(self.openRecipeDetailsPage)
 
-    def open_recipe_details_page(self, meal_name):
-        """Switch to the Recipe Details Page."""
-        self.recipe_details_page.update_content(meal_name)
-        self.stacked_widget.setCurrentWidget(self.recipe_details_page)
+        # Back button in the Recipe Details page
+        self.recipeDetailsPage.backButtonClicked.connect(self.openRecipesPage)  # Return to the recipes page
 
-    def show_home_page(self):
-        """Switch back to the Home Page."""
-        self.stacked_widget.setCurrentWidget(self.home_widget)
+    def openIngredientsPage(self):
+        self.stackedWidget.setCurrentWidget(self.ingredientsPage)
+
+    def openRecipesPage(self):
+        self.stackedWidget.setCurrentWidget(self.recipesPage)
+
+    def openRecipeDetailsPage(self, recipeData):
+        self.recipeDetailsPage.updateContent(recipeData)  # Populate the details page with recipe data
+        self.stackedWidget.setCurrentWidget(self.recipeDetailsPage)  # Switch to the details page
+
+    def showHomePage(self):
+        self.stackedWidget.setCurrentWidget(self.homeWidget)
+
 
 if __name__ == "__main__":
+    # Start the application
     app = QApplication(sys.argv)
     window = MainWindow()
-    window.show()
+    window.show()  # Show the main window
     sys.exit(app.exec_())

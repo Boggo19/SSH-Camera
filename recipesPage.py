@@ -4,44 +4,44 @@ from PyQt5.QtCore import Qt, pyqtSignal
 
 
 class RecipesPage(QDialog):
-    recipe_clicked = pyqtSignal(str)  # Signal to notify which recipe was clicked
+    recipeClicked = pyqtSignal(dict)  # Signal to notify selected recipe details
 
     def __init__(self, parent=None):
         super(RecipesPage, self).__init__(parent)
         self.setGeometry(100, 100, 600, 780)
         self.setWindowTitle("Recipes")
         self.setStyleSheet("background-color:qlineargradient(spread:pad, x1:0.091, y1:0.101636, x2:0.991379, y2:0.977, stop:0 rgba(128, 194, 255, 255), stop:1 rgba(255, 255, 255, 255));")
-        self.setup_ui()
+        self.setupUi()
 
-    def setup_ui(self):
+    def setupUi(self):
         # Layout for the dialog
         layout = QVBoxLayout(self)
 
         # Title label
-        self.title_label = QLabel("RECIPES")
-        self.title_label.setStyleSheet("""
+        self.titleLabel = QLabel("RECIPES")
+        self.titleLabel.setStyleSheet("""
             font: 75 45pt 'Georgia';
-            color: rgba(0, 51, 102, 1); /* Dark blue text */
-            background: transparent; /* Remove any background */
-            margin-top: 25px; /* Adjust this value to move the title lower */
+            color: rgba(0, 51, 102, 1); 
+            background: transparent; 
+            margin-top: 25px; 
         """)
-        self.title_label.setAlignment(Qt.AlignCenter)
+        self.titleLabel.setAlignment(Qt.AlignCenter)
 
         # Add the title to the layout
-        layout.addWidget(self.title_label)
+        layout.addWidget(self.titleLabel)
 
         # Add a spacer for the gap between the title and the table
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
         layout.addSpacerItem(spacer)
 
         # Table setup
-        self.table_view = QTableView(self)
-        self.setup_table()
-        layout.addWidget(self.table_view)
+        self.tableView = QTableView(self)
+        self.setupTable()
+        layout.addWidget(self.tableView)
 
         # Back button
-        self.back_button = QPushButton("Back")
-        self.back_button.setStyleSheet("""
+        self.backButton = QPushButton("Back")
+        self.backButton.setStyleSheet("""
             QPushButton {
                 font: 75 18pt 'Verdana';
                 color: white;
@@ -53,89 +53,104 @@ class RecipesPage(QDialog):
                 background-color: rgba(0, 77, 153, 1);
             }
         """)
-        self.back_button.clicked.connect(self.close)
-        layout.addWidget(self.back_button)
+        self.backButton.clicked.connect(self.close)
+        layout.addWidget(self.backButton)
 
         # Connect table click to handler
-        self.table_view.clicked.connect(self.on_recipe_clicked)
+        self.tableView.clicked.connect(self.onRecipeClicked)
 
-    def setup_table(self):
+    def setupTable(self):
         # Create the table model
         model = QStandardItemModel()
 
         # Add the column titles as the first row
-        column_titles = ["Meal Name", "Ingredients to Buy"]
-        title_row = []
-        for title in column_titles:
-            title_item = QStandardItem(title)
-            title_item.setTextAlignment(Qt.AlignCenter)  # Center align the text
-            title_item.setFlags(Qt.ItemIsEnabled)  # Make it non-editable
-            # Apply styling directly to the column title items
+        columnTitles = ["Meal Name", "Ingredients to Buy"]
+        titleRow = []
+        for title in columnTitles:
+            titleItem = QStandardItem(title)
+            titleItem.setTextAlignment(Qt.AlignCenter)  # Center align the text
+            titleItem.setFlags(Qt.ItemIsEnabled)  # Make it non-editable
+            # Apply styling  to the column title items
             if title == "Ingredients to Buy":
-                font = QFont("Georgia", 14, QFont.Bold)  # Smaller font for "Ingredients to Buy"
+                font = QFont("Georgia", 14, QFont.Bold)  # Set font size
             else:
-                font = QFont("Georgia", 18, QFont.Bold)  # Original font size for other titles
-            title_item.setFont(font)
-            title_row.append(title_item)
+                font = QFont("Georgia", 18, QFont.Bold)  # Set font size
+            titleItem.setFont(font)
+            titleRow.append(titleItem)
 
         # Add the column titles as the first row
-        model.appendRow(title_row)
+        model.appendRow(titleRow)
 
         # Add rows of data
         self.data = [
-            ("Spaghetti Bolognese", 2),
-            ("Chicken Curry", 4),
-            ("Grilled Salmon", 1),
-            ("Vegetable Stir-Fry", 3),
+            {
+                "name": "Spaghetti Bolognese",
+                "ingredientsToBuy": 2,
+                "imagePath": "path/to/spaghetti.jpg",
+                "description": "A classic Italian pasta dish with rich tomato sauce.",
+                "nutrition": [600, 25, 40, 20, 4, 2.0],
+                "prepTime": "15 minutes",
+                "cookTime": "30 minutes",
+                "instructions": "1. Boil pasta.\n2. Prepare sauce.\n3. Combine and serve."
+            },
+            {
+                "name": "Chicken Curry",
+                "ingredientsToBuy": 4,
+                "imagePath": "path/to/curry.jpg",
+                "description": "A flavorful curry with tender chicken and spices.",
+                "nutrition": [600, 25, 40, 20, 4, 2.0],
+                "prepTime": "20 minutes",
+                "cookTime": "40 minutes",
+                "instructions": "1. Marinate chicken.\n2. Cook curry base.\n3. Add chicken and simmer."
+            },
         ]
 
-        for meal_name, ingredients_needed in self.data:
+        for recipe in self.data:
             # Meal Name
-            meal_name_item = QStandardItem(meal_name)
-            meal_name_item.setTextAlignment(Qt.AlignCenter)
+            mealNameItem = QStandardItem(recipe["name"])
+            mealNameItem.setTextAlignment(Qt.AlignCenter)
 
             # Ingredients to Buy
-            ingredients_item = QStandardItem(str(ingredients_needed))
-            ingredients_item.setTextAlignment(Qt.AlignCenter)
+            ingredientsItem = QStandardItem(str(recipe["ingredientsToBuy"]))
+            ingredientsItem.setTextAlignment(Qt.AlignCenter)
 
             # Add the row to the table model
-            model.appendRow([meal_name_item, ingredients_item])
+            model.appendRow([mealNameItem, ingredientsItem])
 
         # Set the model for the table
-        self.table_view.setModel(model)
+        self.tableView.setModel(model)
 
         # Adjust column widths to make all columns the same size
-        total_table_width = 570  # Total width for the table
-        column_width = total_table_width // len(column_titles)  # Equal width for all columns
-        self.table_view.setGeometry(14, 100, total_table_width, 500)  # Ensure table fits within the border
-        for i in range(len(column_titles)):
-            self.table_view.setColumnWidth(i, column_width)
+        totalTableWidth = 570  # Total width for the table
+        columnWidth = totalTableWidth // len(columnTitles)  # Equal width for all columns
+        self.tableView.setGeometry(14, 100, totalTableWidth, 500)  # Ensure table fits within the border
+        for i in range(len(columnTitles)):
+            self.tableView.setColumnWidth(i, columnWidth)
 
         # Remove the header views to match the style from the IngredientsPage
-        self.table_view.horizontalHeader().setVisible(False)
-        self.table_view.verticalHeader().setVisible(False)
+        self.tableView.horizontalHeader().setVisible(False)
+        self.tableView.verticalHeader().setVisible(False)
 
         # Disable all interactions with the table
-        self.table_view.setEditTriggers(QTableView.NoEditTriggers)  # Disable editing
-        self.table_view.setSelectionMode(QTableView.SingleSelection)  # Enable single-row selection
-        self.table_view.setFocusPolicy(Qt.NoFocus)                  # Disable focus
-        self.table_view.setEnabled(True)                            # Allow row selection
+        self.tableView.setEditTriggers(QTableView.NoEditTriggers)  # Disable any editing
+        self.tableView.setSelectionMode(QTableView.SingleSelection)
+        self.tableView.setFocusPolicy(Qt.NoFocus)  # Disable focus
+        self.tableView.setEnabled(True)  # Allow row selection of recipe
 
         # Style the table
-        self.table_view.setStyleSheet("""
+        self.tableView.setStyleSheet("""
             QTableView {
                 background-color: rgba(224, 255, 255, 1);
                 border: 3px solid rgba(0, 102, 204, 1);
-                border-radius: 15px;  /* Smooth corners for the entire table */
+                border-radius: 15px;  
                 font-family: Arial, sans-serif;
                 font-size: 14px;
                 color: rgba(0, 51, 102, 1);
             }
         """)
 
-    def on_recipe_clicked(self, index):
-        """Handle recipe row click."""
-        selected_row = index.row()
-        if selected_row > 0:  # Skip the title row
-            meal_name = self.data[selected_row - 1][0]  # Get the meal name
-            self.recipe_clicked.emit(meal_name)  # Emit the signal
+    def onRecipeClicked(self, index):
+        selectedRow = index.row()
+        if selectedRow > 0:  # Skip the title row
+            recipeData = self.data[selectedRow - 1]  # Fetch the recipe data
+            self.recipeClicked.emit(recipeData)  # Send the signal with the full recipe data
