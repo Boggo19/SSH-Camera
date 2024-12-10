@@ -6,44 +6,70 @@ def connect_to_db():
     """
     try:
         conn = psycopg2.connect(
-            dbname="SSHiverMeTimbers",  # Replace with your database name
+            dbname="SSHiverMeTimbersDB",  # Replace with your database name
             user="postgres",    # Replace with your database username
-            password="changeme",  # Replace with your database password
+            password="password",  # Replace with your database password
             host="localhost",        # Replace with your host, if different
-            port="5433"              # Replace with your port, if different
+            port="5432"              # Replace with your port, if different
         )
         return conn, conn.cursor()
     except psycopg2.Error as e:
         print("Error connecting to the database:", e)
         raise
 
-def get_recipes(cursor, ingredients):
+def get_top_recipes(cursor, ingredients):
     """
-    Queries the database for recipes that can be made with the given list of ingredients.
+    Queries the database for the top 5 most suitable recipes based on the user's fridge ingredients.
     :param cursor: The database cursor
     :param ingredients: List of ingredient names (e.g., ["Tomato", "Cheese", "Basil"])
-    :return: List of recipe names that match the criteria
+    :return: List of the top 5 recipe names with relevance scores
     """
-    query = """
-        SELECT r.recipe_namev
-        FROM "SSH2".recipes r
-        JOIN "SSH2".linking l ON r.recipe_id = l.recipe_id
-        JOIN "SSH2".ingredients i ON l.ingredient_id = i.ingredient_id
-        WHERE i.ingredient_name = ANY(%s)
+    # Query to find exact matches
+    exact_match_query = """
+        SELECT r.recipe_name
+        FROM "SSH".recipes r
+        JOIN "SSH".linking l ON r.recipe_id = l.recipe_id
+        JOIN "SSH".ingredients i ON l.ingredient_id = i.ingredient_id
+        WHERE i.ingredient_name = ANY(%s) AND i.fridge_item = TRUE
         GROUP BY r.recipe_id, r.recipe_name
         HAVING COUNT(DISTINCT i.ingredient_id) = (
             SELECT COUNT(DISTINCT l2.ingredient_id)
-            FROM "SSH2".linking l2
-            WHERE l2.recipe_id = r.recipe_id
-        );
+            FROM "SSH".linking l2
+            JOIN "SSH".ingredients i2 ON l2.ingredient_id = i2.ingredient_id
+            WHERE l2.recipe_id = r.recipe_id AND i2.fridge_item = TRUE
+        )
+        LIMIT 5;
     """
+
+    # Query to find partial matches if no exact matches are found
+    partial_match_query = """
+        SELECT r.recipe_name, COUNT(DISTINCT i.ingredient_id) AS match_count
+        FROM "SSH".recipes r
+        JOIN "SSH".linking l ON r.recipe_id = l.recipe_id
+        JOIN "SSH".ingredients i ON l.ingredient_id = i.ingredient_id
+        WHERE i.ingredient_name = ANY(%s) AND i.fridge_item = TRUE
+        GROUP BY r.recipe_id, r.recipe_name
+        ORDER BY match_count DESC
+        LIMIT 5;
+    """
+
     try:
-        # Pass the list as a tuple by adding a comma after the list
-        cursor.execute(query, (ingredients,))
-        return [row[0] for row in cursor.fetchall()]
+        # Execute the exact match query
+        cursor.execute(exact_match_query, (ingredients,))
+        results = cursor.fetchall()
+        
+        
+        # Otherwise, execute the partial match query
+        cursor.execute(partial_match_query, (ingredients,))
+        partial_results = cursor.fetchall()
+
+        recipes = results + partial_results
+        return recipes[:5]
+
     except psycopg2.Error as e:
         print("Error executing query:", e)
         raise
+
 
 def main():
     """
@@ -58,16 +84,16 @@ def main():
         ingredients = input("Enter the ingredients you have, separated by commas: ").split(",")
         ingredients = [ingredient.strip() for ingredient in ingredients]  # Clean up whitespace
         
-        # Fetch recipes
-        recipes = get_recipes(cursor, ingredients)
+        # Fetch top recipes
+        recipes = get_top_recipes(cursor, ingredients)
         
         # Display results
         if recipes:
-            print("\nRecipes you can make:")
-            for recipe in recipes:
-                print(f"- {recipe}")
+            print("\nTop Recipes:")
+            for recipe, description in recipes:
+                print(f"- {recipe} ({description})")
         else:
-            print("\nNo recipes found for the given ingredients.")
+            print("\nNo recipes found.")
     
     except Exception as e:
         print("An error occurred:", e)
