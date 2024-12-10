@@ -58,14 +58,13 @@ def get_top_recipes(cursor, ingredients):
         cursor.execute(exact_match_query, (ingredients,))
         results = cursor.fetchall()
         
-        # If exact matches are found, return them
-        if results:
-            return [(row[0], "Exact match") for row in results]
         
         # Otherwise, execute the partial match query
         cursor.execute(partial_match_query, (ingredients,))
         partial_results = cursor.fetchall()
-        return [(row[0], f"Match count: {row[1]}") for row in partial_results]
+
+        recipes = results + partial_results
+        return recipes[:5]
 
     except psycopg2.Error as e:
         print("Error executing query:", e)
