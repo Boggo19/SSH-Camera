@@ -25,7 +25,7 @@ def get_recipes(cursor, ingredients):
     :return: List of recipe names that match the criteria
     """
     query = """
-        SELECT r.recipe_name
+        SELECT r.recipe_namev
         FROM "SSH2".recipes r
         JOIN "SSH2".linking l ON r.recipe_id = l.recipe_id
         JOIN "SSH2".ingredients i ON l.ingredient_id = i.ingredient_id

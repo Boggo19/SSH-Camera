@@ -8,3 +8,4 @@ services:
       - ./init_data:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme}
+      POSTGRES_DB: SSHiverMeTimbers
