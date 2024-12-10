@@ -80,41 +80,45 @@ class RecipesPage(QDialog):
             titleRow.append(titleItem)
 
         # Add the column titles as the first row
-        model.appendRow(title_row)
-        ingredientRows = QueryFunction.getIngredients()
-        ingredients = [row[0] for row in ingredientRows]
+        model.appendRow(titleRow)
+
+
+        ingredients = QueryFunction.getIngredients()
+        recipes = QueryFunction.getRecipes(ingredients)
+
+        self.data = recipes
         
         # Add rows of data
-        self.data = [
-            {
-                "name": "Spaghetti Bolognese",
-                "ingredientsToBuy": 2,
-                "imagePath": "path/to/spaghetti.jpg",
-                "description": "A classic Italian pasta dish with rich tomato sauce.",
-                "nutrition": [600, 25, 40, 20, 4, 2.0],
-                "prepTime": "15 minutes",
-                "cookTime": "30 minutes",
-                "instructions": "1. Boil pasta.\n2. Prepare sauce.\n3. Combine and serve."
-            },
-            {
-                "name": "Chicken Curry",
-                "ingredientsToBuy": 4,
-                "imagePath": "path/to/curry.jpg",
-                "description": "A flavorful curry with tender chicken and spices.",
-                "nutrition": [600, 25, 40, 20, 4, 2.0],
-                "prepTime": "20 minutes",
-                "cookTime": "40 minutes",
-                "instructions": "1. Marinate chicken.\n2. Cook curry base.\n3. Add chicken and simmer."
-            },
-        ]
+        # self.data = [
+        #     {
+        #         "name": "Spaghetti Bolognese",
+        #         "ingredientsToBuy": 2,
+        #         "imagePath": "path/to/spaghetti.jpg",
+        #         "description": "A classic Italian pasta dish with rich tomato sauce.",
+        #         "nutrition": [600, 25, 40, 20, 4, 2.0],
+        #         "prepTime": "15 minutes",
+        #         "cookTime": "30 minutes",
+        #         "instructions": "1. Boil pasta.\n2. Prepare sauce.\n3. Combine and serve."
+        #     },
+        #     {
+        #         "name": "Chicken Curry",
+        #         "ingredientsToBuy": 4,
+        #         "imagePath": "path/to/curry.jpg",
+        #         "description": "A flavorful curry with tender chicken and spices.",
+        #         "nutrition": [600, 25, 40, 20, 4, 2.0],
+        #         "prepTime": "20 minutes",
+        #         "cookTime": "40 minutes",
+        #         "instructions": "1. Marinate chicken.\n2. Cook curry base.\n3. Add chicken and simmer."
+        #     },
+        # ]
 
-        for recipe in self.data:
+        for meal, qtyToBuy in self.data:
             # Meal Name
-            mealNameItem = QStandardItem(recipe["name"])
+            mealNameItem = QStandardItem(meal)
             mealNameItem.setTextAlignment(Qt.AlignCenter)
 
             # Ingredients to Buy
-            ingredientsItem = QStandardItem(str(recipe["ingredientsToBuy"]))
+            ingredientsItem = QStandardItem(str(qtyToBuy))
             ingredientsItem.setTextAlignment(Qt.AlignCenter)
 
             # Add the row to the table model
