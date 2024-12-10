@@ -82,22 +82,12 @@ class IngredientsPage(QDialog):
         model.appendRow(titleRow)
 
         #Get data rows from database
-        #data = QueryFunction.getIngredients()
-
-        # Add data rows
-        data = [
-            ("Red Pepper", 2),
-            ("Chicken", 1),
-            ("Green Pepper", 3),
-            ("Onion", 2),
-            ("Bacon", 6),
-        ]
-
-        for ingredient, quantity in data:
+        data = QueryFunction.getIngredients()
+        for ingredient in data:
             ingredientItem = QStandardItem(ingredient)
             ingredientItem.setTextAlignment(Qt.AlignVCenter)
             ingredientItem.setFlags(Qt.NoItemFlags)  # Completely disable interaction
-            
+
             quantityItem = QStandardItem(str(random.randint(1,5)))
             quantityItem.setTextAlignment(Qt.AlignCenter)
             quantityItem.setFlags(Qt.NoItemFlags)  # Completely disable interaction
