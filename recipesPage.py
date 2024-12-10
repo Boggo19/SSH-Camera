@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QDialog, QLabel, QTableView, QPushButton, QVBoxLayout, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QStandardItem, QStandardItemModel, QIcon, QFont
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 import QueryFunction
 
 

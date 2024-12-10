@@ -18,7 +18,6 @@ def connect_to_db():
         print("Error connecting to the database:", e)
         raise
 
-def get_top_recipes(cursor, ingredients):
 def getIngredients():
     conn, cursor = connect_to_db()
     ingredients = get_ingredients(cursor)
@@ -44,13 +43,12 @@ def get_ingredients(cursor):
 
 def getRecipes(ingredients):
     conn, cursor = connect_to_db()
-    recipes = get_recipes(cursor, ingredients)
+    recipes = get_top_recipes(cursor, ingredients)
     cursor.close()
     conn.close()
     return recipes
 
-
-def get_recipes(cursor, ingredients):
+def get_top_recipes(cursor, ingredients):
     """
     Queries the database for the top 5 most suitable recipes based on the user's fridge ingredients.
     :param cursor: The database cursor
