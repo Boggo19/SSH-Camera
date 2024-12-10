@@ -82,7 +82,7 @@ class IngredientsPage(QDialog):
         model.appendRow(titleRow)
 
         #Get data rows from database
-        data = QueryFunction.getIngredients()
+        #data = QueryFunction.getIngredients()
 
         # Add data rows
         data = [
@@ -97,12 +97,7 @@ class IngredientsPage(QDialog):
             ingredientItem = QStandardItem(ingredient)
             ingredientItem.setTextAlignment(Qt.AlignVCenter)
             ingredientItem.setFlags(Qt.NoItemFlags)  # Completely disable interaction
-        for ingredient in data:
-            icon_item = QStandardItem()
-            icon_item.setText(ingredient)
-            icon_item.setTextAlignment(Qt.AlignVCenter)
-            icon_item.setFlags(Qt.NoItemFlags)  # Completely disable interaction
-
+            
             quantityItem = QStandardItem(str(random.randint(1,5)))
             quantityItem.setTextAlignment(Qt.AlignCenter)
             quantityItem.setFlags(Qt.NoItemFlags)  # Completely disable interaction
