@@ -9,9 +9,9 @@ def connect_to_db():
         conn = psycopg2.connect(
             dbname="SSHiverMeTimbersDB",  # Replace with your database name
             user="postgres",    # Replace with your database username
-            password="251910",  # Replace with your database password
+            password="changeme",  # Replace with your database password
             host="localhost",        # Replace with your host, if different
-            port="5432"              # Replace with your port, if different
+            port="5433"              # Replace with your port, if different
         )
         return conn, conn.cursor()
     except psycopg2.Error as e:
