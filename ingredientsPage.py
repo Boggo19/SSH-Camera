@@ -33,6 +33,17 @@ class IngredientsPage(QDialog):
         self.titleLabel.setAlignment(Qt.AlignCenter)
         layout.addWidget(self.titleLabel)
 
+        # Subtitle label under the title
+        self.subtitleLabel = QLabel("Here are all the ingredients in your fridge!")
+        self.subtitleLabel.setStyleSheet("""
+            font: 16pt 'Georgia';
+            color: rgba(0, 77, 153, 1);
+            background: transparent;
+            margin-top: 15px;
+        """)
+        self.subtitleLabel.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.subtitleLabel)
+
         # Spacer between the title and the table
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
         layout.addSpacerItem(spacer)
@@ -148,4 +159,3 @@ class IngredientsPage(QDialog):
         self.tableView.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableView.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.tableView.setFocusPolicy(Qt.NoFocus)
-    
