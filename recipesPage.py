@@ -159,5 +159,18 @@ class RecipesPage(QDialog):
     def onRecipeClicked(self, index):
         selectedRow = index.row()
         if selectedRow > 0:  # Skip the title row
-            recipeData = self.data[selectedRow - 1]  # Fetch the recipe data
-            self.recipeClicked.emit(recipeData)  # Send the signal with the full recipe data
+            recipeName = self.data[selectedRow - 1][0]  # Fetch the recipe name
+            recipeData = QueryFunction.getRecipeInfo(recipeName)[0]
+
+            #Convert to json format
+            jsonRecipe = {
+                "name": recipeData[0],
+                "ingredientsToBuy": QueryFunction.getRecipeIngredients(recipeData[0]),
+                "image": recipeData[1],
+                "description": recipeData[2],
+                "nutrition": [recipeData[3], recipeData[4], recipeData[5], recipeData[6], recipeData[7], recipeData[8]],
+                "prepTime": recipeData[9],
+                "cookTime": recipeData[10],
+                "instructions": recipeData[11]
+            }
+            self.recipeClicked.emit(jsonRecipe)  # Send the signal with the full recipe data

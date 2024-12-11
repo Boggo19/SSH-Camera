@@ -49,7 +49,7 @@ def getRecipeInfo(recipeName):
 
 def get_recipe_info(cursor, recipeName):
     query = """
-            SELECT *
+            SELECT r.recipe_name, r.image_data, r.description, r.kcal, r.protein, r."carbs(sugar)", r."fat(saturates)", r.fibre, r.salt, r.prep_time, r.cook_time, r.instructions
             FROM "SSH".recipes r
             WHERE r.recipe_name = (%s)
             """
