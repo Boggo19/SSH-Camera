@@ -40,6 +40,49 @@ def get_ingredients(cursor):
         print("Error executing query:", e)
         raise
 
+def getRecipeInfo(recipeName):
+    conn, cursor = connect_to_db()
+    recipeInfo = get_recipe_info(cursor, recipeName)
+    cursor.close()
+    conn.close()
+    return recipeInfo
+
+def get_recipe_info(cursor, recipeName):
+    query = """
+            SELECT *
+            FROM "SSH".recipes r
+            WHERE r.recipe_name = (%s)
+            """
+
+    try:
+        cursor.execute(query, (recipeName,))
+        return cursor.fetchall()
+    except psycopg2.Error as e:
+        print("Error executing query:", e)
+        raise
+
+def getRecipeIngredients(recipeName):
+    conn, cursor = connect_to_db()
+    ingredients = get_recipe_ingredients(cursor, recipeName)
+    cursor.close()
+    conn.close()
+    return ingredients
+
+def get_recipe_ingredients(cursor, recipeName):
+    query = """
+            SELECT i.ingredient_name
+            FROM "SSH".ingredients i
+            INNER JOIN "SSH".linking l ON i.ingredient_id = l.ingredient_id
+            INNER JOIN "SSH".recipes r ON l.recipe_id = r.recipe_id
+            WHERE r.recipe_name = (%s)"""
+    
+    try:
+        cursor.execute(query, (recipeName,))
+        return cursor.fetchall()
+    except psycopg2.Error as e:
+        print("Error executing query:", e)
+        raise
+
 def getRecipes(ingredients):
     conn, cursor = connect_to_db()
     recipes = get_top_recipes(cursor, ingredients)
