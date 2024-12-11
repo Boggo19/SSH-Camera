@@ -85,7 +85,7 @@ class RecipesPage(QDialog):
 
         ingredients = QueryFunction.getIngredients()
         recipes = QueryFunction.getRecipes(ingredients)
-
+        recipes = sorted(recipes, key=lambda r:r[1])
         self.data = recipes
         
         # Add rows of data

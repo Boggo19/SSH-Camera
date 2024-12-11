@@ -25,7 +25,6 @@ def getIngredients():
     conn.close()
     return ingredients
 
-
 def get_ingredients(cursor):
     query = """
     SELECT i.ingredient_name
