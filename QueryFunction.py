@@ -1,77 +1,108 @@
 import psycopg2
 
 def connect_to_db():
-    # Database configuration details
-    DATABASE_CONGFIG = {
-        'dbname' : 'SSHiverMeTimbers',
-        'user' : 'postgres',
-        'password' : 'Aun28012005',
-        'host' : 'localhost',
-        'port' : '5432',
-    }
-
-    try: 
-        #connection to the database
-        connection = psycopg2.connect(**DATABASE_CONGFIG)
-        cursor = connection.cursor()
-        print("Database connection successful")
-        selectQuery = """
-        SELECT recipe_id, ingredient_id
-        FROM "SSH2".linking
-        WHERE recipe_id = %s
-        """
-        cursor.execute(selectQuery, (4,))
-        rows = cursor.fetchall()
-        for row in rows:
-            print(f"Recipe ID: {row[0]}, Ingredient ID: {row[1]}")
-
-        # cursor.execute("SELECT version();")
-        # version = cursor.fetchone()
-        # print("PostgreSQL Version:",version)
-    
-    except Exception as e:
-        print("Error connecting to database:", e)
-
-    finally:
-        if connection:
-            cursor.close()
-            connection.close()
-            print("Database connection closed")
-
-    
-    
-
-def get_recipes(cursor, ingredients):
-    ingredient_count = len(ingredients)
-    query = """
-        SELECT r.RecipeName
-        FROM Recipes r
-        JOIN RecipeIngredients ri ON r.RecipeID = ri.RecipeID
-        JOIN Ingredients i ON ri.IngredientID = i.IngredientID
-        WHERE i.IngredientName = ANY(%s)
-        GROUP BY r.RecipeID, r.RecipeName
-        HAVING COUNT(DISTINCT i.IngredientID) = %s;
+    """
+    Establishes a connection to the PostgreSQL database and returns the connection and cursor.
     """
     try:
-        cursor.execute(query, (ingredients, ingredient_count))
-        return [row[0] for row in cursor.fetchall()]
-    except:
-        print("Error executing query:")
+        conn = psycopg2.connect(
+            dbname="SSHiverMeTimbersDB",  # Replace with your database name
+            user="postgres",    # Replace with your database username
+            password="password",  # Replace with your database password
+            host="localhost",        # Replace with your host, if different
+            port="5432"              # Replace with your port, if different
+        )
+        return conn, conn.cursor()
+    except psycopg2.Error as e:
+        print("Error connecting to the database:", e)
+        raise
+
+def get_top_recipes(cursor, ingredients):
+    """
+    Queries the database for the top 5 most suitable recipes based on the user's fridge ingredients.
+    :param cursor: The database cursor
+    :param ingredients: List of ingredient names (e.g., ["Tomato", "Cheese", "Basil"])
+    :return: List of the top 5 recipe names with relevance scores
+    """
+    # Query to find exact matches
+    exact_match_query = """
+        SELECT r.recipe_name
+        FROM "SSH".recipes r
+        JOIN "SSH".linking l ON r.recipe_id = l.recipe_id
+        JOIN "SSH".ingredients i ON l.ingredient_id = i.ingredient_id
+        WHERE i.ingredient_name = ANY(%s) AND i.fridge_item = TRUE
+        GROUP BY r.recipe_id, r.recipe_name
+        HAVING COUNT(DISTINCT i.ingredient_id) = (
+            SELECT COUNT(DISTINCT l2.ingredient_id)
+            FROM "SSH".linking l2
+            JOIN "SSH".ingredients i2 ON l2.ingredient_id = i2.ingredient_id
+            WHERE l2.recipe_id = r.recipe_id AND i2.fridge_item = TRUE
+        )
+        LIMIT 5;
+    """
+
+    # Query to find partial matches if no exact matches are found
+    partial_match_query = """
+        SELECT r.recipe_name, COUNT(DISTINCT i.ingredient_id) AS match_count
+        FROM "SSH".recipes r
+        JOIN "SSH".linking l ON r.recipe_id = l.recipe_id
+        JOIN "SSH".ingredients i ON l.ingredient_id = i.ingredient_id
+        WHERE i.ingredient_name = ANY(%s) AND i.fridge_item = TRUE
+        GROUP BY r.recipe_id, r.recipe_name
+        ORDER BY match_count DESC
+        LIMIT 5;
+    """
+
+    try:
+        # Execute the exact match query
+        cursor.execute(exact_match_query, (ingredients,))
+        results = cursor.fetchall()
+        
+        
+        # Otherwise, execute the partial match query
+        cursor.execute(partial_match_query, (ingredients,))
+        partial_results = cursor.fetchall()
+
+        recipes = results + partial_results
+        return recipes[:5]
+
+    except psycopg2.Error as e:
+        print("Error executing query:", e)
         raise
 
 
-try:
-    # Connect to database
-    # conn, cursor = connect_to_db()
-    # print("Connected to the database successfully.")
+def main():
+    """
+    Main function to interact with the user and display recipes based on their available ingredients.
+    """
+    try:
+        # Connect to the database
+        conn, cursor = connect_to_db()
+        print("Connected to the database successfully.")
         
-    # Fetch ingredients from camera
-    ingredients = []
+        # Input ingredients from the user
+        ingredients = input("Enter the ingredients you have, separated by commas: ").split(",")
+        ingredients = [ingredient.strip() for ingredient in ingredients]  # Clean up whitespace
         
-    # Fetch recipes
-    # recipes = get_recipes(cursor, ingredients)
+        # Fetch top recipes
+        recipes = get_top_recipes(cursor, ingredients)
         
-    # pass recipes to front end
-    connect_to_db()
-except Exception as e:
-    print("An error occurred:", e)
+        # Display results
+        if recipes:
+            print("\nTop Recipes:")
+            for recipe, description in recipes:
+                print(f"- {recipe} ({description})")
+        else:
+            print("\nNo recipes found.")
+    
+    except Exception as e:
+        print("An error occurred:", e)
+    finally:
+        # Clean up database connection
+        if 'cursor' in locals():
+            cursor.close()
+        if 'conn' in locals():
+            conn.close()
+
+if __name__ == "__main__":
+    main()
