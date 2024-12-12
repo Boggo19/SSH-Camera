@@ -1,9 +1,7 @@
 import psycopg2
 
 def connect_to_db():
-    """
-    Establishes a connection to the PostgreSQL database and returns the connection and cursor.
-    """
+    #Establishes a connection to the PostgreSQL database and returns the connection and cursor.
     try:
         conn = psycopg2.connect(
             dbname="SSHiverMeTimbersDB",  # Replace with your database name
