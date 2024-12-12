@@ -31,6 +31,19 @@ class RecipesPage(QDialog):
         # Add the title to the layout
         layout.addWidget(self.titleLabel)
 
+        # Subtitle label
+        self.subtitleLabel = QLabel("Click on the meals for more information!")
+        self.subtitleLabel.setStyleSheet("""
+            font: 18pt 'Georgia';
+            color: rgba(0, 77, 153, 1);
+            background: transparent;
+            margin-top: 15px;
+        """)
+        self.subtitleLabel.setAlignment(Qt.AlignCenter)
+
+        # Add the subtitle to the layout
+        layout.addWidget(self.subtitleLabel)
+
         # Add a spacer for the gap between the title and the table
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
         layout.addSpacerItem(spacer)
@@ -71,7 +84,7 @@ class RecipesPage(QDialog):
             titleItem = QStandardItem(title)
             titleItem.setTextAlignment(Qt.AlignCenter)  # Center align the text
             titleItem.setFlags(Qt.ItemIsEnabled)  # Make it non-editable
-            # Apply styling  to the column title items
+            # Apply styling to the column title items
             if title == "Ingredients to Buy":
                 font = QFont("Georgia", 14, QFont.Bold)  # Set font size
             else:
@@ -155,6 +168,10 @@ class RecipesPage(QDialog):
                 color: rgba(0, 51, 102, 1);
             }
         """)
+
+    def sortRecipesByIngredients(self):
+        # Sort the recipes by the number of ingredients to buy
+        self.data.sort(key=lambda recipe: recipe["ingredientsToBuy"])
 
     def onRecipeClicked(self, index):
         selectedRow = index.row()
