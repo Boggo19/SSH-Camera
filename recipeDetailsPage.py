@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy, QFrame
-from PyQt5.QtGui import QPixmap, QFont
+from PyQt5.QtGui import QPixmap, QFont, QImage
 from PyQt5.QtCore import Qt, pyqtSignal
+import base64
+
 
 class RecipeDetailsPage(QDialog):
     backButtonClicked = pyqtSignal()  # Signal to notify MainWindow to go back
@@ -132,10 +134,14 @@ class RecipeDetailsPage(QDialog):
     def updateContent(self, recipeData):
         self.titleLabel.setText(recipeData.get("name", "Unknown Recipe"))
 
+        # Convert binary data to image
+        base64Data = base64.b64encode(recipeData.get('image')).decode('utf-8')
+        imageData = base64.b64decode(base64Data)
+        qImage = QImage.fromData(imageData)
+
         # Handle image
-        imagePath = recipeData.get("image_path")
-        if imagePath:
-            pixmap = QPixmap(imagePath)
+        if qImage:
+            pixmap = QPixmap.fromImage(qImage)
             self.imageLabel.setPixmap(pixmap.scaled(400, 200, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         else:
             self.imageLabel.setText("No Image Available")
