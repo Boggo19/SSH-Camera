@@ -17,8 +17,8 @@ This repository contains a simple prototype for the **Recipe Suggestion Program*
 
    
 1. Build Docker image and container of database in terminal: "docker compose up"
-2. Run main.py in terminal: "python main.py" - If program is working fine, ignore following 2 instructions.
-3. If there are issues with docker container of database, you will have to set up the database locally using PostgreSQL. Create a database in Postgres called "SSHiverMeTimbers", then in a terminal: "psql -U [username] -d SSHiverMeTimbers -f SSHiverMeTimbersDB.sql"
+2. Run main.py in terminal: "python main.py" - If program is working fine, skip to instruction 9.
+3. If there are issues with docker container of database, try deleting db_data folder and running "docker compose up" again. If that does not work either, you will have to set up the database locally using PostgreSQL. Create a database in Postgres called "SSHiverMeTimbers", then in a terminal: "psql -U [username] -d SSHiverMeTimbers -f SSHiverMeTimbersDB.sql"
 4. Run main.py in terminal: "python main.py"
 5. Once completed with the program, "docker compose down" to stop and remove container.
 
