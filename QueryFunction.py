@@ -7,9 +7,9 @@ def connect_to_db():
     """
     try:
         conn = psycopg2.connect(
-            dbname="SSHiverMeTimbers",  # Replace with your database name
+            dbname="SSH",  # Replace with your database name
             user="postgres",    # Replace with your database username
-            password="password",  # Replace with your database password
+            password="251910",  # Replace with your database password
             host="localhost",        # Replace with your host, if different
             port="5432"              # Replace with your port, if different
         )
